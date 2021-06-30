@@ -29,7 +29,7 @@ driver = init_driver()
 # ----------------------------------------------------------------------------
 
 def connect_to_site(
-        driver,
+        driver=driver,
         site=SITE
 ):
     try:
@@ -40,14 +40,14 @@ def connect_to_site(
 
 
 # ----------------------------------------------------------------------------
-
+conn = connect_to_site(driver)
+print()
 def firs_search(
-        find_name="coupon-table",
-        driver=connect_to_site(driver)
-
+        conn = conn,
+        find_name="coupon-table"
 ):
     try:
-        box = driver.wait.until(EC.presence_of_all_elements_located(
+        box = conn.wait.until(EC.presence_of_all_elements_located(
             (By.CLASS_NAME, find_name)))
         print('---------------FIND BOX----------------')
         print(box)
@@ -57,9 +57,10 @@ def firs_search(
         print('firs_search', e)
 
 
-box = firs_search()
-in_play_box = box[0]
-soon_play_box = box[1]
+boxes = firs_search()
+print()
+in_play_box = boxes[0]
+soon_play_box = boxes[1]
 
 
 # ----------------------------------------------------------------------------
@@ -71,20 +72,23 @@ def end(time: object, driver: object = driver) -> object:
 
 
 def main():
+    # print(in_play_box.text)
+
     time.sleep(0.5)
     li_in = in_play_box.find_elements_by_class_name('mod-event-line')
-    time.sleep(0.5)
-    li_end = soon_play_box.find_elements_by_class_name('mod-event-line')
-
-    print('---------------FIND Li_in ----------------')
     print(li_in)
-    print('---------------END Li_in ----------------')
-
-    print('---------------FIND Li----------------')
-    print(li_end)
-    print('---------------END Li----------------')
-
-
+    # time.sleep(0.5)
+    # li_end = soon_play_box.find_elements_by_class_name('mod-event-line')
+    #
+    # print('---------------FIND Li_in ----------------')
+    # print(li_in)
+    # print('---------------END Li_in ----------------')
+    #
+    # print('---------------FIND Li----------------')
+    # print(li_end)
+    # print('---------------END Li----------------')
+    #
+    #
     for i in li_in:
         print(i.text)
         print()
