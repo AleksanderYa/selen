@@ -59,8 +59,8 @@ def firs_search(
 boxes = firs_search()
 print()
 in_play_box = boxes[0]
-soon_play_box = boxes[1]
-
+# soon_play_box = boxes[1]
+print(in_play_box.text)
 
 # ----------------------------------------------------------------------------
 def end(time: object, driver: object = driver) -> object:
@@ -72,13 +72,16 @@ def for_in(inside):
     for i in inside:
         print(i.text)
         print()
+        a = i.find_elements_by_class_name('mod-link')
+        print(a)
+        print()
         print('--------------')
 
 time.sleep(0.5)
 li_in = in_play_box.find_elements_by_class_name('mod-event-line')
 print(li_in)
-time.sleep(0.5)
-li_end = soon_play_box.find_elements_by_class_name('mod-event-line')
+# time.sleep(0.5)
+# li_end = soon_play_box.find_elements_by_class_name('mod-event-line')
 
 def main():
     # print(in_play_box.text)
@@ -86,8 +89,8 @@ def main():
     time.sleep(0.5)
     li_in = in_play_box.find_elements_by_class_name('mod-event-line')
     print(li_in)
-    time.sleep(0.5)
-    li_end = soon_play_box.find_elements_by_class_name('mod-event-line')
+    # time.sleep(0.5)
+    # li_end = soon_play_box.find_elements_by_class_name('mod-event-line')
     #
     # print('---------------FIND Li_in ----------------')
     # print(li_in)
@@ -100,8 +103,8 @@ def main():
     #
     print('--In play--')
     for_in(li_in)
-    print('--Soon play--')
-    for_in(li_end)
+    # print('--Soon play--')
+    # for_in(li_end)
     end(time)
 
 if __name__ == '__main__':
