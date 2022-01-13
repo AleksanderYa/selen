@@ -1,9 +1,9 @@
-from .browser_class import Browser
-
+from browser_class import Browser
 
 browser = Browser()
 browser.connect()
 
 inplay = browser.inplay_market()
 soonplay = browser.soonplay_market()
-
+print(soonplay.__len__())
+print()

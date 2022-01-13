@@ -55,9 +55,9 @@ class Browser:
 
     def sort_markets(self, _list: list):
         result = _list
-        for i in range(len(result) - 1):
+        for i in range(0, len(result) - 1):
             try:
-                in_time = result[i].find_element_by_class_name(self.TIME_PLAY).text
+                result[i].find_element_by_class_name(self.TIME_PLAY).text
             except NoSuchElementException:
                 result.pop(i)
         return result
@@ -65,13 +65,11 @@ class Browser:
     def inplay_market(self):
         self.__find_markets()
         result = self.inplay_markets.find_elements_by_class_name(self.FIND_MARKET)
-        result = self.sort_markets(result)
         return result
 
     def soonplay_market(self):
         self.__find_markets()
         result = self.soonplay_markets.find_elements_by_class_name(self.FIND_MARKET)
-        result = self.sort_markets(result)
         return result
 
     def view(self, ii: list):
