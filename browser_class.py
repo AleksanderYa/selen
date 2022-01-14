@@ -12,6 +12,7 @@ class Browser:
     SITE = 'https://www.betfair.com/exchange/plus/inplay/football'
     FIND_TABLE = 'coupon-table'
     FIND_MARKET = 'mod-event-line'
+    MARKET_VOLUME = 'matched-amount-value'
     NAME_MARKET = 'name'
     PLAYER_2 = 'away'
     PLAYER_1 = 'home'
@@ -21,7 +22,7 @@ class Browser:
         self.chrome_options = Options()
         self.chrome_options.add_argument("start-maximized")
         self.driver = webdriver.Chrome(self.PATH, options=self.chrome_options)
-        self.driver.wait = WebDriverWait(self.driver, 5)
+        self.driver.wait = WebDriverWait(self.driver, 7)
         self.inplay_markets = []
         self.soonplay_markets = []
 
@@ -54,13 +55,15 @@ class Browser:
             raise NoSuchElementException('No have markets')
 
     def sort_markets(self, _list: list):
-        result = _list
-        for i in range(0, len(result) - 1):
+        self.result = _list
+        size_list_market = len(self.result)
+        for i in range(0, size_list_market):
             try:
-                result[i].find_element_by_class_name(self.TIME_PLAY).text
+                self.result[i].find_element_by_class_name(self.TIME_PLAY).text
             except NoSuchElementException:
-                result.pop(i)
-        return result
+                delat = self.result.pop(i)
+                print(delat)
+        return self.result
 
     def inplay_market(self):
         self.__find_markets()
@@ -72,14 +75,19 @@ class Browser:
         result = self.soonplay_markets.find_elements_by_class_name(self.FIND_MARKET)
         return result
 
-    def view(self, ii: list):
-        for i in ii:
+    def view(self, _list: list):
+        for i in _list:
             try:
                 self.in_time = i.find_element_by_class_name(self.TIME_PLAY).text
                 self.home_score = i.find_element_by_class_name(self.PLAYER_1).text
                 self.away_score = i.find_element_by_class_name(self.PLAYER_2).text
-                self.runners = i.find_element_by_class_name(self.NAME_MARKET)
-                print(f'{self.in_time} {self.home_score}-{self.away_score} {self.runners}')
+                self.amaunt = i.find_element_by_class_name(self.MARKET_VOLUME).text
+                self.runners = i.find_elements_by_class_name(self.NAME_MARKET)
+                self.home_runner = self.runners[0].text
+                self.away_runner = self.runners[1].text
+                print(f'{self.amaunt}  {self.in_time} {self.home_score}-{self.away_score} {self.home_runner}vs{self.away_runner}')
             except:
                 print('error')
 
+class Laundry:
+   pass
