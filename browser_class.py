@@ -22,7 +22,7 @@ class Browser:
         self.chrome_options = Options()
         self.chrome_options.add_argument("start-maximized")
         self.driver = webdriver.Chrome(self.PATH, options=self.chrome_options)
-        self.driver.wait = WebDriverWait(self.driver, 7)
+        self.driver.wait = WebDriverWait(self.driver, 5)
         self.inplay_markets = []
         self.soonplay_markets = []
 
@@ -31,6 +31,7 @@ class Browser:
         try:
             self.driver.get(self.SITE)
             print(f'Connect is DONE')
+            sleep(2)
         except Exception as e:
             print('Error', e)
 
@@ -56,12 +57,13 @@ class Browser:
 
     def sort_markets(self, _list: list):
         self.result = _list
-        size_list_market = len(self.result)
+        size_list_market = len(self.result)-1
         for i in range(0, size_list_market):
             try:
                 self.result[i].find_element_by_class_name(self.TIME_PLAY).text
             except NoSuchElementException:
                 delat = self.result.pop(i)
+                # size_list_market -= 1
                 print(delat)
         return self.result
 
@@ -75,7 +77,11 @@ class Browser:
         result = self.soonplay_markets.find_elements_by_class_name(self.FIND_MARKET)
         return result
 
+    def returm_list_inplay(self):
+        pass
+
     def view(self, _list: list):
+        self.text_list = []
         for i in _list:
             try:
                 self.in_time = i.find_element_by_class_name(self.TIME_PLAY).text
@@ -85,9 +91,14 @@ class Browser:
                 self.runners = i.find_elements_by_class_name(self.NAME_MARKET)
                 self.home_runner = self.runners[0].text
                 self.away_runner = self.runners[1].text
-                print(f'{self.amaunt}  {self.in_time} {self.home_score}-{self.away_score} {self.home_runner}vs{self.away_runner}')
+                self.text = f'{self.amaunt}  {self.in_time} {self.home_score}-{self.away_score}\n' \
+                       f' {self.home_runner}\n{self.away_runner}\n\n'
+                self.text_list.append(self.text)
+                print(self.text)
             except:
                 print('error')
+        self.text_join = ' '.join(self.text_list)
+        return self.text_join
 
 class Laundry:
    pass

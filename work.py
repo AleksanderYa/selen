@@ -12,12 +12,12 @@ class Switch:
         self.__soonplay = self.__browser.soonplay_market()
         self.__inplay_sorted = self.__browser.sort_markets(self.__inplay)
         # self.soonplay_sorted = browser.sort_markets(soonplay)
-        self.__browser.view(self.__inplay_sorted)
-        print()
-        print()
+        self.res = self.__browser.view(self.__inplay_sorted)
+        print(self.res)
+        return self.res
+
     def turn_off(self):
         self.__browser.end()
 
-switch = Switch()
-switch.turn_on()
-switch.turn_off()
+
+
