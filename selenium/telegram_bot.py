@@ -14,6 +14,8 @@ class Bot:
     def send_message_to_telega(self):
         self.text = self.browser.turn_on()
         self.bot.send_message(Bot.CHAT_ID, self.text)
+        print('Massage is send')
+        self.browser.turn_off()
 
     def send_message(self, text):
         self.bot.send_message(Bot.CHAT_ID, text)

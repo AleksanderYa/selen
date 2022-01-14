@@ -1,4 +1,5 @@
 from time import sleep
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -57,13 +58,11 @@ class Browser:
 
     def sort_markets(self, _list: list):
         self.result = _list
-        size_list_market = len(self.result)-1
-        for i in range(0, size_list_market):
+        for count, value in enumerate(self.result):
             try:
-                self.result[i].find_element_by_class_name(self.TIME_PLAY).text
+                value.find_element_by_class_name(self.TIME_PLAY).text
             except NoSuchElementException:
-                delat = self.result.pop(i)
-                # size_list_market -= 1
+                delat = self.result.pop(count)
                 print(delat)
         return self.result
 
@@ -77,11 +76,8 @@ class Browser:
         result = self.soonplay_markets.find_elements_by_class_name(self.FIND_MARKET)
         return result
 
-    def returm_list_inplay(self):
-        pass
-
     def view(self, _list: list):
-        self.text_list = []
+        self.text_list = [f'Date: {datetime.today().day}.{datetime.today().month}.{datetime.today().year}\n' ]
         for i in _list:
             try:
                 self.in_time = i.find_element_by_class_name(self.TIME_PLAY).text
@@ -91,14 +87,12 @@ class Browser:
                 self.runners = i.find_elements_by_class_name(self.NAME_MARKET)
                 self.home_runner = self.runners[0].text
                 self.away_runner = self.runners[1].text
-                self.text = f'{self.amaunt}  {self.in_time} {self.home_score}-{self.away_score}\n' \
-                       f' {self.home_runner}\n{self.away_runner}\n\n'
+                self.text = f'{self.amaunt}\n{self.in_time} {self.home_score}-{self.away_score}\n' \
+                       f'{self.home_runner}\n{self.away_runner}\n\n'
                 self.text_list.append(self.text)
-                print(self.text)
+                # print(self.text)
             except:
                 print('error')
         self.text_join = ' '.join(self.text_list)
         return self.text_join
 
-class Laundry:
-   pass
