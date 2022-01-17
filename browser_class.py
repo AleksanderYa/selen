@@ -9,7 +9,8 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
 class Browser:
-    PATH = 'D:\chromedriver.exe'
+    # PATH = 'D:\chromedriver.exe'
+    PATH = '/home/pi/Desktop/selenium/cromedriver/chromedriver'
     SITE = 'https://www.betfair.com/exchange/plus/inplay/football'
     FIND_TABLE = 'coupon-table'
     FIND_MARKET = 'mod-event-line'
@@ -21,9 +22,10 @@ class Browser:
 
     def __init__(self):
         self.chrome_options = Options()
+        self.changer = Changer_types()
         self.chrome_options.add_argument("start-maximized")
         self.driver = webdriver.Chrome(self.PATH, options=self.chrome_options)
-        self.driver.wait = WebDriverWait(self.driver, 5)
+        self.driver.wait = WebDriverWait(self.driver, 2)
         self.inplay_markets = []
         self.soonplay_markets = []
 
@@ -83,12 +85,13 @@ class Browser:
                 self.in_time = i.find_element_by_class_name(self.TIME_PLAY).text
                 self.home_score = i.find_element_by_class_name(self.PLAYER_1).text
                 self.away_score = i.find_element_by_class_name(self.PLAYER_2).text
-                self.amaunt = i.find_element_by_class_name(self.MARKET_VOLUME).text
+                self.amaunt = i.find_element_by_class_name(self.MARKET_VOLUME).text ###
+                self.amaunt_int = self.changer.to_int(self.amaunt)
                 self.runners = i.find_elements_by_class_name(self.NAME_MARKET)
                 self.home_runner = self.runners[0].text
                 self.away_runner = self.runners[1].text
-                self.text = f'{self.amaunt}\n{self.in_time} {self.home_score}-{self.away_score}\n' \
-                       f'{self.home_runner}\n{self.away_runner}\n\n'
+                self.text = f'{self.amaunt}\n{self.in_time}\n' \
+                       f'{self.home_score} {self.home_runner}\n{self.away_score} {self.away_runner}\n\n'
                 self.text_list.append(self.text)
                 # print(self.text)
             except:
@@ -96,3 +99,15 @@ class Browser:
         self.text_join = ' '.join(self.text_list)
         return self.text_join
 
+class Changer_types:
+    def __del_charge(self, text:str):
+        return text[1:]
+
+    def __replace_dot(self, _):
+        text = self.__del_charge(_)
+        res = text.replace(',', '')
+        return res
+
+    def to_int(self, _):
+        text = int(self.__replace_dot(_))
+        return text

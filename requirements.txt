@@ -14,14 +14,15 @@ idna==3.2
 importlib-metadata==2.1.1
 jinxed==1.1.0
 psycopg2==2.9.2
+pyTelegramBotAPI==4.3.1
 python-dateutil==2.8.2
 pytz==2021.1
 redis==3.5.3
 requests==2.26.0
 six==1.16.0
 soupsieve==2.2.1
+sqlparse==0.4.2
 typing-extensions==3.10.0.0
 urllib3==1.26.6
 wcwidth==0.2.5
 zipp==3.5.0
- 
