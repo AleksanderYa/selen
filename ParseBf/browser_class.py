@@ -157,5 +157,16 @@ class Bot:
 class Tst:
     @staticmethod
     def hi():
+
         print('Hi')
         return 'Hi'
+
+class Tsts:
+    @staticmethod
+    def go():
+        bot = Bot()
+        bot.send_message_to_telega()
+        print('Send')
+        return 'Hilo'
+
+
