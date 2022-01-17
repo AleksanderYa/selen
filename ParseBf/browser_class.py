@@ -111,3 +111,9 @@ class Changer_types:
     def to_int(self, _):
         text = int(self.__replace_dot(_))
         return text
+
+class Tst:
+    @staticmethod
+    def hi():
+        print('Hi')
+        return 'Hi'

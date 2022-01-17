@@ -1,6 +1,4 @@
-from browser_class import Browser
-from django_q.tasks import schedule
-from telegram_bot import Bot
+from ParseBf.browser_class import Browser
 
 
 class Switch:
@@ -20,14 +18,3 @@ class Switch:
     def turn_off(self):
         self.__browser.end()
 
-class Scheduller:
-    def __init__(self):
-        self.bot = Bot()
-
-    def go_sched(self):
-        schedule(self.bot.send_message_to_telega(), schedule_type='I', minutes=1, repeats=-1)
-
-
-
-sched = Scheduller()
-sched.go_sched()
