@@ -9,8 +9,8 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
 class Browser:
-    # PATH = 'D:\chromedriver.exe'
-    PATH = '/home/pi/Desktop/selenium/cromedriver/chromedriver'
+    PATH = 'D:\chromedriver.exe'
+    # PATH = '/home/pi/Desktop/selenium/cromedriver/chromedriver'
     SITE = 'https://www.betfair.com/exchange/plus/inplay/football'
     FIND_TABLE = 'coupon-table'
     FIND_MARKET = 'mod-event-line'
@@ -93,7 +93,7 @@ class Browser:
                 self.text = f'{self.amaunt}\n{self.in_time}\n' \
                        f'{self.home_score} {self.home_runner}\n{self.away_score} {self.away_runner}\n\n'
                 self.text_list.append(self.text)
-                # print(self.text)
+
             except:
                 print('error')
         self.text_join = ' '.join(self.text_list)
