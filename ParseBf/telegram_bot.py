@@ -1,7 +1,7 @@
 import telebot
 from time import sleep
 from selenium.common.exceptions import TimeoutException
-from ParseBf.work import Switch
+from work import Switch
 
 
 class Bot:

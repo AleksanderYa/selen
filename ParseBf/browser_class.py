@@ -1,3 +1,4 @@
+import telebot
 from time import sleep
 from datetime import datetime
 from selenium import webdriver
@@ -6,11 +7,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
 
 class Browser:
-    PATH = 'D:\chromedriver.exe'
-    # PATH = '/home/pi/Desktop/selenium/cromedriver/chromedriver'
+    # PATH = 'D:\chromedriver.exe'
+    PATH = '/home/pi/Desktop/selenium/cromedriver/chromedriver'
     SITE = 'https://www.betfair.com/exchange/plus/inplay/football'
     FIND_TABLE = 'coupon-table'
     FIND_MARKET = 'mod-event-line'
@@ -111,6 +113,46 @@ class Changer_types:
     def to_int(self, _):
         text = int(self.__replace_dot(_))
         return text
+
+class Switch:
+    def __init__(self):
+        self.__browser = Browser()
+
+    def turn_on(self):
+        self.__browser.connect()
+        self.__inplay = self.__browser.inplay_market()
+        self.__soonplay = self.__browser.soonplay_market()
+        self.__inplay_sorted = self.__browser.sort_markets(self.__inplay)
+        # self.soonplay_sorted = browser.sort_markets(soonplay)
+        self.res = self.__browser.view(self.__inplay_sorted)
+        print(self.res)
+        return self.res
+
+    def turn_off(self):
+        self.__browser.end()
+
+class Bot:
+    TOKEN = '1342963300:AAGBnoqmIQ63KpcVMa9QuPgF_RtF_HXhwEU'
+    CHAT_ID = 428637454
+    TEXT = 'Hi'
+
+    def __init__(self):
+        self.types = telebot.types
+        self.browser = Switch()
+
+    def send_message_to_telega(self):
+        try:
+            self.bot = telebot.TeleBot(Bot.TOKEN, parse_mode=None)
+            self.text = self.browser.turn_on()
+            self.bot.send_message(Bot.CHAT_ID, self.text)
+            print('Massage is send')
+            self.browser.turn_off()
+        except TimeoutException:
+            sleep(1)
+            self.send_message_to_telega()
+
+    def send_message(self, text):
+        self.bot.send_message(Bot.CHAT_ID, text)
 
 class Tst:
     @staticmethod
