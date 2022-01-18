@@ -11,8 +11,8 @@ from selenium.common.exceptions import TimeoutException
 
 
 class Browser:
-    # PATH = 'D:\chromedriver.exe'
-    PATH = '/home/pi/Desktop/selenium/cromedriver/chromedriver'
+    PATH = 'D:\chromedriver.exe'
+    # PATH = '/home/pi/Desktop/selenium/cromedriver/chromedriver'
     SITE = 'https://www.betfair.com/exchange/plus/inplay/football'
     FIND_TABLE = 'coupon-table'
     FIND_MARKET = 'mod-event-line'
